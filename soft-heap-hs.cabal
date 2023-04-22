@@ -1,0 +1,86 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           soft-heap-hs
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/soft-heap-hs#readme>
+homepage:       https://github.com/githubuser/soft-heap-hs#readme
+bug-reports:    https://github.com/githubuser/soft-heap-hs/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2023 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/soft-heap-hs
+
+library
+  exposed-modules:
+      Heap
+      Lib
+  other-modules:
+      Paths_soft_heap_hs
+  hs-source-dirs:
+      src
+  default-extensions:
+      PatternSynonyms
+      LambdaCase
+      NamedFieldPuns
+      TupleSections
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , monoid-extras
+    , monoid-subclasses
+  default-language: Haskell2010
+
+executable soft-heap-hs-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_soft_heap_hs
+  hs-source-dirs:
+      app
+  default-extensions:
+      PatternSynonyms
+      LambdaCase
+      NamedFieldPuns
+      TupleSections
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monoid-extras
+    , monoid-subclasses
+    , soft-heap-hs
+  default-language: Haskell2010
+
+test-suite soft-heap-hs-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_soft_heap_hs
+  hs-source-dirs:
+      test
+  default-extensions:
+      PatternSynonyms
+      LambdaCase
+      NamedFieldPuns
+      TupleSections
+      ImportQualifiedPost
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , monoid-extras
+    , monoid-subclasses
+    , soft-heap-hs
+  default-language: Haskell2010
