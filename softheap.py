@@ -3,6 +3,8 @@
 # (c) Haim Kaplan, Robert E. Tarjan and Uri Zwick.
 
 import random
+from dataclassy import dataclass
+import dataclassy as d
 INF = float('inf')
 T = INF
 # T = 2
@@ -12,11 +14,14 @@ T = INF
 ########
 
 
+@d.dataclass()
 class Item:
+    key: int
+    next: 'Item' = None
 
-    def __init__(self, it):
-        self.key = it
+    def __post_init__(self):
         self.next = self
+
 
 ########
 # Node #
