@@ -6,7 +6,7 @@ import random
 from dataclasses import dataclass
 import dataclasses as d
 import math
-from typing import Union
+from typing import Union, Tuple
 from copy import copy
 INF = math.inf
 T = INF
@@ -32,24 +32,36 @@ nullItem = Item(INF)
 # Node #
 ########
 
-
 @dataclass()
 class Node:
     set: Item = d.field(default_factory=lambda : nullItem)
     key: float = INF
     rank: Union[float,int] = INF
-    left: Union[None, 'Node'] = None
-    right: Union[None, 'Node'] = None
+    left: 'Node' = None
+    right: 'Node' = None
 
-    next: Union[None, 'Node'] = None
+    next: 'Node' = None
 
     def __post_init__(self):
         if self.next is None:
             self.next = self
+        # This is a hack to get around the fact that dataclasses don't
+        # support default values for fields that are instances of the
+        # class being defined.
+        if self.left is None:
+            try:
+                self.left = null
+            except NameError:
+                self.left = self
+        if self.right is None:
+            try:
+                self.right = null
+            except NameError:
+                self.left = self
 
 null = Node(rank=INF)
-null.left = null
-null.right = null
+# null.left = null
+# null.right = null
 # null.set = nullItem
 # null.key = INF
 # null.rank = INF
@@ -93,7 +105,7 @@ def fill(x: Node):
 #############
 
 
-def make_heap() -> 'Node':
+def make_heap() -> Node:
     return null
 
 ############
@@ -101,7 +113,7 @@ def make_heap() -> 'Node':
 ############
 
 
-def find_min(H):
+def find_min(H) -> Tuple[Item, float]:
     return (H.set.next, H.key)
 
 #############
@@ -109,7 +121,7 @@ def find_min(H):
 #############
 
 
-def rank_swap(H):
+def rank_swap(H: Node) -> Node:
     x = H.next
     if H.rank <= x.rank:
         return H
@@ -249,6 +261,7 @@ def extract(P):
         P = delete_min(P)
     return lst
 
+BUG = Exception
 
 def sort(lst):
     print(lst)
