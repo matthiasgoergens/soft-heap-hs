@@ -6,7 +6,7 @@ import random
 from dataclasses import dataclass
 import dataclasses as d
 import math
-from typing import Union, Tuple
+from typing import Union, Tuple, List
 from copy import copy
 INF = math.inf
 T = INF
@@ -73,8 +73,8 @@ null = Node(rank=INF)
 # defill #
 ##########
 
-
 def defill(x: Node):
+    "double even fill"
     fill(x)
     if x.rank > T and x.rank % 2 == 0 and x.left != null:
         fill(x)
@@ -135,7 +135,7 @@ def rank_swap(H: Node) -> Node:
 ############
 
 
-def key_swap(H):
+def key_swap(H: Node) -> Node:
     x = H.next
     if H.key <= x.key:
         return H
@@ -149,7 +149,7 @@ def key_swap(H):
 ##############
 
 
-def delete_min(H):
+def delete_min(H: Node) -> Node:
     e = H.set.next
     if e.next != e:
         H.set.next = e.next
@@ -170,7 +170,7 @@ def delete_min(H):
 ###########
 
 
-def reorder(H, k):
+def reorder(H: Node, k: int) -> Node:
     if H.next.rank < k:
         H = rank_swap(H)
         H.next = reorder(H.next, k)
@@ -181,7 +181,7 @@ def reorder(H, k):
 ##########
 
 
-def insert(e, H):
+def insert(e: Item, H: Node) -> Node:
     return key_swap(meldable_insert(make_root(e), rank_swap(H)))
 
 #############
@@ -189,7 +189,7 @@ def insert(e, H):
 #############
 
 
-def make_root(e):
+def make_root(e: Item) -> Node:
     return Node(set=e, key=e.key, rank=0, left=null, right=null, next=null)
 
 ###################
@@ -197,7 +197,7 @@ def make_root(e):
 ###################
 
 
-def meldable_insert(x, H):
+def meldable_insert(x: Node, H: Node) -> Node:
     if x.rank < H.rank:
         x.next = key_swap(H)
         return x
@@ -209,7 +209,7 @@ def meldable_insert(x, H):
 ########
 
 
-def link(x, y):
+def link(x: Node, y: Node) -> Node:
     z = Node(set=nullItem, key=x.key, rank=x.rank + 1, left=x, right=y, next=null)
     z.set = nullItem
     defill(z)
@@ -220,7 +220,7 @@ def link(x, y):
 ########
 
 
-def meld(H1, H2):
+def meld(H1: Node, H2: Node) -> Node:
     return key_swap(meldable_meld(rank_swap(H1), rank_swap(H2)))
 
 #################
@@ -228,7 +228,7 @@ def meld(H1, H2):
 #################
 
 
-def meldable_meld(H1, H2):
+def meldable_meld(H1: Node, H2: Node) -> Node:
     if H1.rank > H2.rank:
         H1, H2 = H2, H1
     if H2 == null:
@@ -239,39 +239,38 @@ def meldable_meld(H1, H2):
 #################################################################
 
 
-def randlist(n):
+def randlist(n) -> List[float]:
     return [random.random() for i in range(n)]
 
 
-def randperm(n):
+def randperm(n) -> List[float]:
     return random.sample(list(range(n)), n)
 
 
-def build(lst):
+def build(lst) -> Node:
     P = make_heap()
     for it in lst:
         P = insert(Item(it), P)
     return P
 
 
-def extract(P):
+def extract(P: Node) -> List[float]:
     lst = []
-    while P != null: # TODO(matthias): or nullItem?
+    while P != null:
         lst.append(find_min(P)[0].key)
         P = delete_min(P)
     return lst
 
 BUG = Exception
 
-def sort(lst):
+def sort(lst: List[float]) -> List[float]:
     print(lst)
     P = build(lst)
     lst1 = extract(P)
     if T == INF:
         for i in range(1, len(lst)):
             if lst1[i] < lst1[i-1]:
-                print("BUG!!!")
-                raise BUG()
+                raise BUG("BUG!!!")
     print(lst1)
     print(" ")
     return lst1
