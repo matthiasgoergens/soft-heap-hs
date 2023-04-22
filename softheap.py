@@ -3,10 +3,11 @@
 # (c) Haim Kaplan, Robert E. Tarjan and Uri Zwick.
 
 import random
-from dataclassy import dataclass
-import dataclassy as d
+from dataclasses import dataclass
+import dataclasses as d
 import math
 from typing import Union
+from copy import copy
 INF = math.inf
 T = INF
 # T = 2
@@ -32,15 +33,15 @@ nullItem = Item(INF)
 ########
 
 
-@d.dataclass
+@dataclass()
 class Node:
-    set: Item = nullItem
+    set: Item = d.field(default_factory=lambda : nullItem)
     key: float = INF
-    rank: int
+    rank: Union[float,int] = INF
     left: Union[None, 'Node'] = None
     right: Union[None, 'Node'] = None
 
-    next: 'Node' = None
+    next: Union[None, 'Node'] = None
 
     def __post_init__(self):
         if self.next is None:
@@ -71,7 +72,7 @@ def defill(x: Node):
 ########
 
 
-def fill(x):
+def fill(x: Node):
     if x.left.key > x.right.key:
         x.left, x.right = x.right, x.left
     x.key = x.left.key
@@ -92,7 +93,7 @@ def fill(x):
 #############
 
 
-def make_heap():
+def make_heap() -> 'Node':
     return null
 
 ############
