@@ -5,7 +5,9 @@
 import random
 from dataclassy import dataclass
 import dataclassy as d
-INF = float('inf')
+import math
+from typing import Union
+INF = math.inf
 T = INF
 # T = 2
 
@@ -16,36 +18,50 @@ T = INF
 
 @d.dataclass()
 class Item:
-    key: int
+    key: float
     next: 'Item' = None
 
     def __post_init__(self):
-        self.next = self
+        if self.next is None:
+            self.next = self
 
+nullItem = Item(INF)
 
 ########
 # Node #
 ########
 
 
+@d.dataclass
 class Node:
-    pass
+    set: Item = nullItem
+    key: float = INF
+    rank: int
+    left: Union[None, 'Node'] = None
+    right: Union[None, 'Node'] = None
 
+    next: 'Node' = None
 
-null = Node()
-null.set = null
-null.key = INF
-null.rank = INF
+    def __post_init__(self):
+        if self.next is None:
+            self.next = self
+
+null = Node(rank=INF)
 null.left = null
 null.right = null
-null.next = null
+# null.set = nullItem
+# null.key = INF
+# null.rank = INF
+# null.left = null
+# null.right = null
+# null.next = null
 
 ##########
 # defill #
 ##########
 
 
-def defill(x):
+def defill(x: Node):
     fill(x)
     if x.rank > T and x.rank % 2 == 0 and x.left != null:
         fill(x)
@@ -59,11 +75,11 @@ def fill(x):
     if x.left.key > x.right.key:
         x.left, x.right = x.right, x.left
     x.key = x.left.key
-    if x.set == null:
+    if x.set == nullItem:
         x.set = x.left.set
     else:
         x.set.next, x.left.set.next = x.left.set.next, x.set.next
-    x.left.set = null
+    x.left.set = nullItem
     if x.left.left == null:
         # destroy x.left
         x.left = x.right
@@ -126,7 +142,7 @@ def delete_min(H):
         H.set.next = e.next
         return H
     else:
-        H.set = null
+        H.set = nullItem
         k = H.rank
         if H.left == null:
             L = H.next
@@ -161,15 +177,7 @@ def insert(e, H):
 
 
 def make_root(e):
-    x = Node()
-    e.next = e
-    x.set = e
-    x.key = e.key
-    x.rank = 0
-    x.left = null
-    x.right = null
-    x.next = null
-    return x
+    return Node(set=e, key=e.key, rank=0, left=null, right=null, next=null)
 
 ###################
 # meldable_insert #
@@ -189,11 +197,8 @@ def meldable_insert(x, H):
 
 
 def link(x, y):
-    z = Node()
-    z.set = null
-    z.rank = x.rank + 1
-    z.left = x
-    z.right = y
+    z = Node(set=nullItem, key=x.key, rank=x.rank + 1, left=x, right=y, next=null)
+    z.set = nullItem
     defill(z)
     return z
 
@@ -238,7 +243,7 @@ def build(lst):
 
 def extract(P):
     lst = []
-    while P != null:
+    while P != null: # TODO(matthias): or nullItem?
         lst.append(find_min(P)[0].key)
         P = delete_min(P)
     return lst
