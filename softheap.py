@@ -2,6 +2,7 @@
 # "Soft Heaps Simplified", by Haim Kaplan, Robert E. Tarjan and Uri Zwick.
 # (c) Haim Kaplan, Robert E. Tarjan and Uri Zwick.
 
+import random
 INF = float('inf')
 T = INF
 # T = 2
@@ -10,18 +11,21 @@ T = INF
 # Item #
 ########
 
+
 class Item:
 
-    def __init__(e,it):
-        e.key = it
-        e.next = e
+    def __init__(self, it):
+        self.key = it
+        self.next = self
 
 ########
 # Node #
 ########
-        
+
+
 class Node:
     pass
+
 
 null = Node()
 null.set = null
@@ -35,14 +39,16 @@ null.next = null
 # defill #
 ##########
 
+
 def defill(x):
     fill(x)
-    if x.rank > T and x.rank%2 == 0 and x.left != null:
+    if x.rank > T and x.rank % 2 == 0 and x.left != null:
         fill(x)
 
 ########
 # fill #
 ########
+
 
 def fill(x):
     if x.left.key > x.right.key:
@@ -53,16 +59,17 @@ def fill(x):
     else:
         x.set.next, x.left.set.next = x.left.set.next, x.set.next
     x.left.set = null
-    if x.left.left == null: 
+    if x.left.left == null:
         # destroy x.left
         x.left = x.right
         x.right = null
     else:
         defill(x.left)
-        
+
 #############
 # make_heap #
 #############
+
 
 def make_heap():
     return null
@@ -71,6 +78,7 @@ def make_heap():
 # find_min #
 ############
 
+
 def find_min(H):
     return (H.set.next, H.key)
 
@@ -78,22 +86,24 @@ def find_min(H):
 # rank_swap #
 #############
 
+
 def rank_swap(H):
     x = H.next
-    if H.rank <= x.rank: 
+    if H.rank <= x.rank:
         return H
     else:
         H.next = x.next
-        x.next = H 
+        x.next = H
         return x
 
 ############
 # key_swap #
 ############
 
+
 def key_swap(H):
     x = H.next
-    if H.key <= x.key: 
+    if H.key <= x.key:
         return H
     else:
         H.next = x.next
@@ -104,28 +114,30 @@ def key_swap(H):
 # delete_min #
 ##############
 
+
 def delete_min(H):
     e = H.set.next
-    if e.next != e: 
+    if e.next != e:
         H.set.next = e.next
         return H
     else:
         H.set = null
         k = H.rank
-        if H.left == null: 
+        if H.left == null:
             L = H.next
             # destroy H
             H = L
         else:
             defill(H)
         return reorder(H, k)
-  
+
 ###########
 # reorder #
 ###########
 
+
 def reorder(H, k):
-    if H.next.rank < k: 
+    if H.next.rank < k:
         H = rank_swap(H)
         H.next = reorder(H.next, k)
     return key_swap(H)
@@ -134,12 +146,14 @@ def reorder(H, k):
 # insert #
 ##########
 
+
 def insert(e, H):
-    return key_swap(meldable_insert(make_root(e), rank_swap(H))) 
+    return key_swap(meldable_insert(make_root(e), rank_swap(H)))
 
 #############
 # make_root #
 #############
+
 
 def make_root(e):
     x = Node()
@@ -156,8 +170,9 @@ def make_root(e):
 # meldable_insert #
 ###################
 
+
 def meldable_insert(x, H):
-    if x.rank < H.rank: 
+    if x.rank < H.rank:
         x.next = key_swap(H)
         return x
     else:
@@ -166,6 +181,7 @@ def meldable_insert(x, H):
 ########
 # link #
 ########
+
 
 def link(x, y):
     z = Node()
@@ -180,6 +196,7 @@ def link(x, y):
 # meld #
 ########
 
+
 def meld(H1, H2):
     return key_swap(meldable_meld(rank_swap(H1), rank_swap(H2)))
 
@@ -187,56 +204,61 @@ def meld(H1, H2):
 # meldable_meld #
 #################
 
+
 def meldable_meld(H1, H2):
     if H1.rank > H2.rank:
-        H1,H2 = H2,H1
-    if H2 == null: 
+        H1, H2 = H2, H1
+    if H2 == null:
         return H1
     else:
         return meldable_insert(H1, meldable_meld(rank_swap(H1.next), H2))
 
 #################################################################
 
-import random
 
 def randlist(n):
-    return [ random.random() for i in range(n) ]
+    return [random.random() for i in range(n)]
+
 
 def randperm(n):
-    return random.sample(list(range(n)),n)
+    return random.sample(list(range(n)), n)
+
 
 def build(lst):
     P = make_heap()
     for it in lst:
-        P=insert(Item(it),P)
+        P = insert(Item(it), P)
     return P
 
+
 def extract(P):
-    lst = [];
-    while P!=null:
+    lst = []
+    while P != null:
         lst.append(find_min(P)[0].key)
         P = delete_min(P)
     return lst
-        
+
+
 def sort(lst):
     print(lst)
     P = build(lst)
     lst1 = extract(P)
-    if T==INF:
-        for i in range(1,len(lst)):
-            if lst1[i]<lst1[i-1]:
+    if T == INF:
+        for i in range(1, len(lst)):
+            if lst1[i] < lst1[i-1]:
                 print("BUG!!!")
                 raise BUG()
     print(lst1)
     print(" ")
     return lst1
 
+
 sort(randperm(100))
 
-T=3
+T = 3
 sort(randperm(100))
 
-T=INF
-P=build(randperm(100))
-Q=build(randperm(200))
-print(extract(meld(P,Q)))
+T = INF
+P = build(randperm(100))
+Q = build(randperm(200))
+print(extract(meld(P, Q)))
