@@ -41,6 +41,11 @@ default-extensions:
   - NamedFieldPuns
   - TupleSections
   - ImportQualifiedPost
+  - DeriveFunctor
+  - DeriveFoldable
+  - DeriveTraversable
+  - GeneralizedNewtypeDeriving
+  - StandaloneDeriving
 
 library:
   source-dirs: src
