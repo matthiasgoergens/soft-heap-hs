@@ -25,9 +25,13 @@ source-repository head
 
 library
   exposed-modules:
+      Batch
+      BatchClass
       Heap
       Lib
       Scratch
+      Scratch2
+      Sealed
   other-modules:
       Paths_soft_heap_hs
   hs-source-dirs:
@@ -43,6 +47,10 @@ library
       DeriveTraversable
       GeneralizedNewtypeDeriving
       StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
@@ -67,6 +75,10 @@ executable soft-heap-hs-exe
       DeriveTraversable
       GeneralizedNewtypeDeriving
       StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
@@ -93,6 +105,10 @@ test-suite soft-heap-hs-test
       DeriveTraversable
       GeneralizedNewtypeDeriving
       StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

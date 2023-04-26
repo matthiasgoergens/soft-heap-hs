@@ -27,4 +27,9 @@ instance BC.Batch b => Sorted SList b where
     pull1 (SList (Heap batch0 rest:xs))
         = Just (Heap batch0 $ maybe id insert (pull2 rest) (SList xs))
 
--- pop :: 
+pop :: (Ord a, Sorted s b) => Heap s b a -> Maybe (Heap s b a)
+pop (Heap b rest) = case BC.pop b of
+    Just b' -> Just (Heap b' rest)
+    -- See whether we need to do pull2 here for asymptotics?
+    Nothing -> pop =<< pull1 rest
+-- pop (Heap b rest) = case BC.pop

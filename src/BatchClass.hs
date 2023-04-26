@@ -20,6 +20,12 @@ instance Applicative B where
 instance Semigroup (B a) where
     a <> b = B (_size a + _size b) (_key b)
 
+instance Batch B where
+    size = _size
+    key = _key
+    pop B {_key, _size} | _size > 1 = Just B {_key, _size = _size - 1 }
+    pop _ = Nothing
+
 {-
 pure id <*> x == x
 

@@ -46,6 +46,10 @@ default-extensions:
   - DeriveTraversable
   - GeneralizedNewtypeDeriving
   - StandaloneDeriving
+  - TypeSynonymInstances
+  - MultiParamTypeClasses
+  - QuantifiedConstraints
+  - FlexibleInstances
 
 library:
   source-dirs: src
