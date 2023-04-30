@@ -6,10 +6,10 @@ import random
 from dataclasses import dataclass
 import dataclasses as d
 import math
+from math import inf
 from typing import Union, Tuple, List
 from copy import copy
-INF = math.inf
-T = INF
+T = inf
 # T = 2
 
 ########
@@ -19,14 +19,14 @@ T = INF
 
 @d.dataclass()
 class Item:
-    key: float
+    key: Union[float, int]
     next: 'Item' = None
 
     def __post_init__(self):
         if self.next is None:
             self.next = self
 
-nullItem = Item(INF)
+nullItem = Item(inf)
 
 ########
 # Node #
@@ -35,8 +35,8 @@ nullItem = Item(INF)
 @dataclass()
 class Node:
     set: Item = d.field(default_factory=lambda : nullItem)
-    key: float = INF
-    rank: Union[float,int] = INF
+    key: float = inf
+    rank: Union[float,int] = inf
     left: 'Node' = None
     right: 'Node' = None
 
@@ -59,12 +59,12 @@ class Node:
             except NameError:
                 self.left = self
 
-null = Node(rank=INF)
+null = Node(rank=inf)
 # null.left = null
 # null.right = null
 # null.set = nullItem
-# null.key = INF
-# null.rank = INF
+# null.key = inf
+# null.rank = inf
 # null.left = null
 # null.right = null
 # null.next = null
@@ -267,7 +267,7 @@ def sort(lst: List[float]) -> List[float]:
     print(lst)
     P = build(lst)
     lst1 = extract(P)
-    if T == INF:
+    if T == inf:
         for i in range(1, len(lst)):
             if lst1[i] < lst1[i-1]:
                 raise BUG("BUG!!!")
@@ -281,7 +281,7 @@ sort(randperm(100))
 T = 3
 sort(randperm(100))
 
-T = INF
+# T = inf
 P = build(randperm(100))
 Q = build(randperm(200))
 print(extract(meld(P, Q)))
