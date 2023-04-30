@@ -1,2 +1,4 @@
 .hypothesis/
 __pycache__/
+.stack-work/
+*~
