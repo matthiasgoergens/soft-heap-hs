@@ -9,8 +9,8 @@ import math
 from math import inf
 from typing import Union, Tuple, List, Iterator
 from copy import copy
-# T = inf
-T = 3
+T = inf
+# T = 20
 
 ########
 # Item #
@@ -149,7 +149,15 @@ def get_all_uncorrupted(P: Union[None, Node]) -> List[float]:
             yield x.key
             yield from helper(x.left)
             yield from helper(x.right)
-    return list(helper(P))
+    cur = P
+    so_far = []
+    while cur is not None and cur is not null:
+        print("moving to next node")
+        so_far.extend(list(helper(cur)))
+        cur = cur.next
+        if cur is P:
+            break
+    return so_far
 
 ##########
 # defill #
@@ -330,8 +338,9 @@ def randperm(n) -> List[float]:
 
 
 def build(lst: List[Union[float, int]]) -> Node:
-    global debug
+    global debug, T
     debug = False
+    T = inf
     P = make_heap()
     s = 0
     so_far = []
@@ -339,8 +348,13 @@ def build(lst: List[Union[float, int]]) -> Node:
         s += 1
         so_far.append(it)
         P = insert(it, P)
-        # hmm, P.size is buggy.  Go with items.
-        assert len(so_far) == len(list(P.items())), f"{so_far} != {list(P.items()}"
+        # hmm, P.size is buggy, maybe?.  Go with items.
+        items = list(P.items())
+        assert len(so_far) == len(items), f"{so_far} != {items}"
+        uncorrupted = get_all_uncorrupted(P)
+        assert len(uncorrupted) <= len(items), f"{uncorrupted} > {items}"
+        assert set(uncorrupted).issubset(set(items)), f"{uncorrupted} not subset of {items}"
+        print(f"{len(so_far)}: {len(uncorrupted)}\t{uncorrupted}")
         # if P.size() != s:
         #     msg = f"{P.size()} != {s}, {list(P.items())} {so_far}"
         #     debug = True
@@ -377,6 +391,8 @@ def sort(lst: List[float]) -> List[float]:
     return lst1
 
 def sort1(lst: List[float]) -> List[float]:
+    global T
+    T = inf
     P = build(lst)
     print(get_all_uncorrupted(P))
     print(P.size())
@@ -396,4 +412,4 @@ def from_upstream():
     Q = build(randperm(200))
     print(extract(meld(P, Q)))
 
-sort1(range(100))
+build(range(100))
