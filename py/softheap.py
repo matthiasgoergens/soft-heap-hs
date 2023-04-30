@@ -9,7 +9,7 @@ import math
 from math import inf
 from typing import Union, Tuple, List, Iterator
 from copy import copy
-T = inf
+T = 2
 # T = 20
 
 ########
@@ -152,7 +152,7 @@ def get_all_uncorrupted(P: Union[None, Node]) -> List[float]:
     cur = P
     so_far = []
     while cur is not None and cur is not null:
-        print("moving to next node")
+        # print("moving to next node")
         so_far.extend(list(helper(cur)))
         cur = cur.next
         if cur is P:
@@ -340,7 +340,7 @@ def randperm(n) -> List[float]:
 def build(lst: List[Union[float, int]]) -> Node:
     global debug, T
     debug = False
-    T = inf
+    T = 2
     P = make_heap()
     s = 0
     so_far = []
@@ -412,4 +412,4 @@ def from_upstream():
     Q = build(randperm(200))
     print(extract(meld(P, Q)))
 
-build(range(100))
+build(range(1000))
