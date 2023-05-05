@@ -23,6 +23,7 @@ dependencies:
   - base >= 4.7 && < 5
   - monoid-subclasses
   - monoid-extras
+  - vector
 
 ghc-options:
   - -Wall
@@ -50,6 +51,12 @@ default-extensions:
   - MultiParamTypeClasses
   - QuantifiedConstraints
   - FlexibleInstances
+  - TypeFamilies
+  - InstanceSigs
+  - ScopedTypeVariables
+  - BlockArguments
+  - UndecidableInstances
+  - FlexibleContexts
 
 library:
   source-dirs: src

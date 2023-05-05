@@ -35,9 +35,8 @@ instance Batch B where
     pop B {_key, _size} | _size > 1 = Just B {_key, _size = _size - 1 }
     pop _ = Nothing
 
-{-
-pure id <*> x == x
+defaultPop :: BatchGet b => b a -> Maybe (b a)
+defaultPop = snd . uncons
 
-size (pure x) == 1
-Means: size needs to multiply for (<*>)
--}
+class (Batch b) => BatchGet b where
+    uncons :: b a -> (a, Maybe (b a))
