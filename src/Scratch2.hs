@@ -48,6 +48,8 @@ data SealedHeap a = Node (Batch a) (Closed (SealedHeap a))
 -- type Open a = (Int, [a])
 type Closed a = [a]
 
+-- pop1 :: SealedHap a -> 
+
 pullFromHeap :: SealedHeap a -> (Batch a, SealedHeap a)
 pullFromHeap (Node b rest) = (b, uncurry Node $ pull2Batch rest)
 
