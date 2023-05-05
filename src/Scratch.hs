@@ -3,18 +3,12 @@ module Scratch where
 import Data.Bool (bool)
 import Control.Arrow ((>>>), (<<<))
 import Data.List qualified as DL
-import Data.List.NonEmpty qualified as N
-import Data.List.NonEmpty (NonEmpty(..))
 import Data.Monoid.Instances.Concat
-import Data.Monoid.Instances.Concat ( force )
 import Data.Monoid.Factorial ( splitPrimePrefix )
 import Data.Monoid.Inf (Inf (..), Pos)
-import Data.Maybe (listToMaybe)
 import Data.Functor
 import Data.Monoid.Null
 import Prelude hiding (null, even)
-import Data.Coerce
-import Data.Function (on)
 
 -- We don't necessarily need to store the capacity with each node, we could store it globally.
 -- In Rust we could use a presized vector?
