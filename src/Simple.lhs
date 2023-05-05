@@ -1,11 +1,9 @@
 > module Simple where
 > import Data.Ord (comparing)
-> import Control.Arrow ((>>>), (<<<), second)
+> import Control.Arrow ((>>>))
 > import Data.List qualified as DL
 > import Data.Maybe (catMaybes)
-> import Data.Foldable (foldMap)
 > import Data.Monoid qualified as DM
-> import Data.Function ((&))
 > import Data.Functor ((<&>))
 > import BatchHybrid qualified as B
 
