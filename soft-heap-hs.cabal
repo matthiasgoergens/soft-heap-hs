@@ -25,8 +25,18 @@ source-repository head
 
 library
   exposed-modules:
+      Batch
+      BatchClass
+      BatchHybrid
+      Digits
+      Fixed
       Heap
       Lib
+      Scratch
+      Scratch2
+      Sealed
+      Simple
+      SimpleDigit
   other-modules:
       Paths_soft_heap_hs
   hs-source-dirs:
@@ -37,11 +47,27 @@ library
       NamedFieldPuns
       TupleSections
       ImportQualifiedPost
+      DeriveFunctor
+      DeriveFoldable
+      DeriveTraversable
+      GeneralizedNewtypeDeriving
+      StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
+      TypeFamilies
+      InstanceSigs
+      ScopedTypeVariables
+      BlockArguments
+      UndecidableInstances
+      FlexibleContexts
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
     , monoid-extras
     , monoid-subclasses
+    , vector
   default-language: Haskell2010
 
 executable soft-heap-hs-exe
@@ -56,12 +82,28 @@ executable soft-heap-hs-exe
       NamedFieldPuns
       TupleSections
       ImportQualifiedPost
+      DeriveFunctor
+      DeriveFoldable
+      DeriveTraversable
+      GeneralizedNewtypeDeriving
+      StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
+      TypeFamilies
+      InstanceSigs
+      ScopedTypeVariables
+      BlockArguments
+      UndecidableInstances
+      FlexibleContexts
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , monoid-extras
     , monoid-subclasses
     , soft-heap-hs
+    , vector
   default-language: Haskell2010
 
 test-suite soft-heap-hs-test
@@ -77,10 +119,26 @@ test-suite soft-heap-hs-test
       NamedFieldPuns
       TupleSections
       ImportQualifiedPost
+      DeriveFunctor
+      DeriveFoldable
+      DeriveTraversable
+      GeneralizedNewtypeDeriving
+      StandaloneDeriving
+      TypeSynonymInstances
+      MultiParamTypeClasses
+      QuantifiedConstraints
+      FlexibleInstances
+      TypeFamilies
+      InstanceSigs
+      ScopedTypeVariables
+      BlockArguments
+      UndecidableInstances
+      FlexibleContexts
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , monoid-extras
     , monoid-subclasses
     , soft-heap-hs
+    , vector
   default-language: Haskell2010
