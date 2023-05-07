@@ -36,6 +36,7 @@ library
       Scratch2
       Sealed
       Simple
+      SimpleDigit
   other-modules:
       Paths_soft_heap_hs
   hs-source-dirs:

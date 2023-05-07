@@ -12,6 +12,7 @@ unc is a container to wrap uncorrupted in.  Needs Monoid and pure or so.
 We can use a difference list, or similar.
 
 > data Cons unc pool a = Cons { batch :: B.Batch pool a, uncorrupted :: unc a, rest :: MCons unc pool a }
+>  deriving (Eq, Ord, Show, Functor)
 > type MCons unc b a = Maybe (Cons unc b a)
 
 > singleton :: (Applicative (B.Batch pool), Monoid (unc a)) => a -> Cons unc pool a
