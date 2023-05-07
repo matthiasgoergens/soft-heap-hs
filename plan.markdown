@@ -78,3 +78,15 @@ Technically, we also have a pop-min; but we do that from a batch.
 So perhaps we should talk about pennants (topped trees), so that only the top needs to support single pop-min.
 
 What about double-fill?  Some nodes pull twice as much as others.  (That's a bit like the red-black tree, where some nodes are red, and others are black.  Can we use that construction?)
+
+==============
+
+We have a relatively clean new approach in `Simple.lhs`, `BatchHybrid.lhs` and `SimpleDigit.lhs`.
+
+We can bring out the capped-length sorted container approach a bit more, as suggested in the paper that I contacted the author's about?
+
+Can we adapt the proofs in the "Soft Heaps simplified." (2013) paper to our setting?
+
+Our `Simple.lhs` approach explicitly uses laziness.
+
+Implement some number systems?  OK, this is independent of the fused approach, ie soft heap.
