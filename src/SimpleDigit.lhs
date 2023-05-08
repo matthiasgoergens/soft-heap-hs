@@ -7,7 +7,6 @@
 > import Data.Monoid qualified as DM
 > import Data.Functor ((<&>))
 > import BatchHybrid qualified as B
-  import qualified Control.Arrow as later
   
 Our module Simple already has something like a digit, a sorted list.Arrow
 
@@ -48,6 +47,7 @@ Ok, this is too hard.  Do findable order later.
 > meld op [] y = y
 > meld op (x:xs) (y:ys) = op x y : meld op xs ys
 
-> normalise :: (a -> (a, a)) -> Meldable a -> Meldable a
-> normalise op [] = []
-> normalise op (x:xs) = let (here, carry) = op x in here : normalise op (meld op [carry] xs)
+> normalise :: (a -> a -> a) -> (a -> (a, a)) -> Meldable a -> Meldable a
+> normalise (<>) op = n where
+>   n [] = []
+>   n (x:xs) = let (here, carry) = op x in here : n (meld (<>) [carry] xs)
